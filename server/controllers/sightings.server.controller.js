@@ -35,6 +35,7 @@ exports.sightingByFlowerName = function(req,res,next,flowerName){
         SELECT * 
         FROM SIGHTINGS 
         WHERE NAME = ?
+        LIMIT 10
         ;    
     `;
     var db = new sqlite3.Database(__dirname + '/../../database/flowers.db', sqlite3.OPEN_READWRITE, (err) => {

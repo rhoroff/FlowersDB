@@ -6,7 +6,14 @@ angular.module('flowers').controller('FlowerController', ['$scope', 'Flowers',
         }, function (error) {
             console.log('Unable to retrieve listings:', error);
         });
-        //Stores Variable for Current User Info, Role/Lastname/FirstName/etc.
+        $scope.getSightings = function(flowerName) {
+            Flowers.getSightingsByName(flowerName).then(function(response){
+                $scope.sightings = response.data;
+                console.log($scope.sightings)
+            }), function(error) {
+                console.log("Couldn't get listings by name");
+            }
+        }
 
     }
 ]);
