@@ -1,4 +1,5 @@
 var path = require('path');
+var flowerRouter = require('./flowers.routes.js');
 module.exports = function (app, passport) {
     
     app.get('/', isLoggedIn, function (req, res, next) {//Checks if user is logged in and then...
@@ -30,7 +31,7 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
-    app.use("/api", isLoggedIn);//Must be logged in for any request to the API
+    app.use("/api", isLoggedIn, flowerRouter);//Must be logged in for any request to the API
 
     function isLoggedIn(req, res, next) {//USE THIS TO CHECK IF THERE IS A LOGIN
         if (req.isAuthenticated())
