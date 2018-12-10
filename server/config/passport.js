@@ -35,7 +35,7 @@ module.exports = function (passport) {
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {//Create the new User
                         console.log('made it into the create')
-                        db.run(`INSERT INTO users(username, password) VALUES(?,?)`, [username, bcrypt.hashSync(password, bcrypt.genSaltSync(8),null)], function(err){
+                        db.run(`INSERT INTO users(username, password, first_name, last_name) VALUES(?,?,?,?)`, [username, bcrypt.hashSync(password, bcrypt.genSaltSync(8),null), req.body.firstName, req.body.lastName], function(err){
                             if(err)
                                 console.log(err);
                                 return done(null, row);

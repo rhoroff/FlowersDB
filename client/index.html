@@ -7,12 +7,13 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
     crossorigin="anonymous">
+    <title>Fleur</title>
 </head>
 
 <body ng-app="flowersApp">
   <div class="container">
     <div class="row">
-      <h1>Flowers</h1>
+      <h1>Fleur</h1>
     </div>
     <div class="row" ng-controller="FlowerController">
       <div class="col-md-6">
@@ -45,17 +46,17 @@
                     </div>
                     <div class="modal-body">
                       <form>
-                        <div class = "form-row">
+                        <div class="form-row">
                           <div class="form-group col">
                             <input type="text" class="form-control" placeholder="Genus">
                           </div>
                           <div class="col form-group">
-                              <input type="text" class="form-control" placeholder="Species">
+                            <input type="text" class="form-control" placeholder="Species">
                           </div>
                         </div>
-                        <div class = "form-row">
+                        <div class="form-row">
                           <div class="col form-group ">
-                            <input type = "text" class="form-control" placeholder="Common Name">
+                            <input type="text" class="form-control" placeholder="Common Name">
                           </div>
                         </div>
                       </form>
@@ -70,31 +71,59 @@
             </tr>
           </table>
         </div>
-        <form novalidate class="simple-form">
-          <h2>Add New Listing</h2>
-          Code: <input type="text" ng-model="newListing.code" /><br />
-          Name: <input type="text" ng-model="newListing.name" /><br />
-          Address: <input type="text" ng-model="newListing.address" /><br />
-          <button class="btn btn-primary" ng-click="addListing()">Add Listing</button>
-        </form>
       </div>
       <div class="col-md-6">
-        <div class="jumbotron">
-          <h3>{{flower.COMNAME}}</h3>
+        <div class="jumbotron" ng-show="curFlowName ">
+          <h3>{{curFlowName}}</h3>
           <table class="table table-striped table-hover">
             <tr>
               <th>Date</th>
               <th>Location</th>
               <th>Sighted By</th>
-              <th></th>
             </tr>
             <tr ng-repeat="sighting in sightings">
-              <td>{{sighting.SIGHTED}}</td>
-              <td>{{sighting.LOCATION}}</td>
-              <td>{{sighting.PERSON}}</td>
+              <td ng-bind="sighting.SIGHTED"></td>
+              <td ng-bind="sighting.LOCATION"></td>
+              <td ng-bind="sighting.PERSON"></td>
             </tr>
           </table>
-          <p>Seen {{flower.COMNAME}} ? Add a sighting</p>
+          <div >
+            Seen {{curFlowName}}?
+            <button class="btn btn-secondary btn-link" data-toggle="collapse"  aria-controls="addSightingCard"ng-click="getUser(); hidden=!hidden;" data-target="#addSightingCard">
+              Add a sighting
+            </button>
+            <div class="card" id="addSightingCard" ng-show="!hidden">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <form id="addSightingModal" ng-submit="addSighting(); getSightings(curFlowName)">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">First Name</label>
+                      <input type="text" class="form-control" id="inputEmail4" ng-model="curUserFirstName" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Last Name</label>
+                      <input type="text" class="form-control" id="inputPassword4" ng-model="curUserLastName" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="locationSelect">Location</label>
+                    <select ng-model="location" ng-options="location.LOCATION for location in locations" class="form-control"
+                      id="locationSelect"></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="sightedDate">Date of Sightings</label>
+                    <input type="text" class="form-control" id="sightedDate" placeholder="YYYY-MM-DD" ng-model="sightedDate">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-target="#addSightingCard" data-dismiss="collapse">Close</button>
+                    <button type="submit" class="btn btn-primary" value="Submit" ng-controller="FlowerController">Save
+                      changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

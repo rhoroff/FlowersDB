@@ -22,3 +22,25 @@ exports.list = function(req, res) {
     })
     db.close();
 };
+
+exports.locations = function(req,res) {
+    var getLocationsSQL = `
+    SELECT LOCATION
+    FROM FEATURES;
+    `
+    var db = new sqlite3.Database(__dirname + '/../../database/flowers.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+          console.log(err);
+        }
+        else{
+            console.log('Connected to flowers database')
+        }
+      });
+    db.all(getLocationsSQL, [], (err, rows) => {
+        if(err){
+            throw(err);
+        }
+        res.json(rows);
+    })
+
+}

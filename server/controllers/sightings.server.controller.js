@@ -35,6 +35,7 @@ exports.sightingByFlowerName = function(req,res,next,flowerName){
         SELECT * 
         FROM SIGHTINGS 
         WHERE NAME = ?
+        ORDER BY SIGHTED DESC
         LIMIT 10
         ;    
     `;
@@ -54,6 +55,29 @@ exports.sightingByFlowerName = function(req,res,next,flowerName){
         next();
     })
     db.close;
+}
+
+exports.add = function(req, res){
+    var insertSightingsSQL = `
+    INSERT INTO SIGHTINGS(NAME,PERSON,LOCATION,SIGHTED)
+    VALUES(?,?,?, ?)
+    `
+    var db = new sqlite3.Database(__dirname + '/../../database/flowers.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+          console.log(err);
+        }
+        else{
+            console.log('Connected to flowers database')
+        }
+      })
+      console.log(req.body);
+    db.run(insertSightingsSQL, [req.body.flowerName,req.body.person,req.body.location.LOCATION,req.body.date], err => {
+        if(err)
+            console.log(err);
+
+        
+    });
+
 }
 
 //http://localhost:8080/api/sightings/California%20flannelbush

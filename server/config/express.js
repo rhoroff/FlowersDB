@@ -25,7 +25,9 @@ module.exports.init = function() {
           CREATE TABLE IF NOT EXISTS users(
               "id" INTEGER PRIMARY KEY AUTOINCREMENT,
               "username" TEXT,
-              "password" TEXT NOT NULL
+              "password" TEXT NOT NULL,
+              "first_name" TEXT NOT NULL,
+              "last_name" TEXT NOT NULL
           )
           `);
       });
