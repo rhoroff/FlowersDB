@@ -31,6 +31,7 @@ module.exports.init = function() {
           )
           `);
       });
+      db.close();
 
       require('./passport')(passport)//passes passport for configuration
 
@@ -59,7 +60,9 @@ module.exports.init = function() {
         res.redirect('/');
     });
     return app;
+    
 };
+
 
 
 

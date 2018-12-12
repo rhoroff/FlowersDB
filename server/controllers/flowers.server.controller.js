@@ -1,4 +1,9 @@
-var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3').verbose(),
+    search = require('./../config/search'),
+    GoogleImages = require('google-images'),
+    flowerURLS = require('../config/flowerUrls')
+
+
 
 var getAllSQL = `SELECT * FROM FLOWERS;`;
 
@@ -16,10 +21,23 @@ exports.list = function(req, res) {
         if(err){
             throw(err);
         }
-        rows.forEach((row) =>{
-            console.log(row);
-        })
         res.json(rows);
     })
     db.close();
-};
+}
+
+exports.read = function(req, res) {
+    res.json(req.results);
+    console.log('Is this the error?');
+}
+exports.getFlowerImage = function(req, res, next, flowerName) {
+    // console.log('The google search is failing');
+    // search.client.search(flowerName, {safe :'high'}).then(images => {
+    //     req.results=images;
+    //     next();
+    // }, function(error) {
+    //     console.error(error.error);
+    // });
+    req.results = flowerURLS;
+    next();
+}

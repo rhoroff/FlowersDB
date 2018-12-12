@@ -9,6 +9,11 @@ router.route('/flowers')
   .get(flowers.list);
   //.post(flowers.create)
 
+router.route('/flowers/:curFlowerName')
+  .get(flowers.read);
+
+router.param('curFlowerName', flowers.getFlowerImage)
+
 router.route('/sightings')
   .get(sightings.list)
   .post(sightings.add);

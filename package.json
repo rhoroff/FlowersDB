@@ -14,6 +14,7 @@
         "ejs": "~2.5.2",
         "express": "^4.13.3",
         "express-session": "^1.15.6",
+        "google-images": "^2.1.0",
         "method-override": "~2.3.6",
         "morgan": "^1.6.1",
         "ngrok": "^3.1.0",
